@@ -1,13 +1,13 @@
 import React from 'react';
-import { Text, Image } from 'react-native';
-import { Container } from './styles';
+import { Image } from 'react-native';
+import { Container, Title } from './styles';
 import Assets from '../../assets/Assets';
 
 const Login: React.FC = () => {
   return (
     <Container>
       <Image source={Assets.Logo} />
-      <Text>Login</Text>
+      <Title>Login</Title>
     </Container>
   );
 };
