@@ -3,6 +3,7 @@ import { Image } from 'react-native';
 import { Container, Title } from './styles';
 import Assets from '../../assets/Assets';
 import Input from '../../components/Input';
+import Button from '../../components/Button';
 
 const Login: React.FC = () => {
   return (
@@ -11,6 +12,7 @@ const Login: React.FC = () => {
       <Title>Faça seu logon</Title>
       <Input name="email" icon="mail" placeholder="Email" />
       <Input name="password" icon="lock" placeholder="Senha" secureTextEntry />
+      <Button onPress={() => console.warn('press')}>Entrar</Button>
     </Container>
   );
 };

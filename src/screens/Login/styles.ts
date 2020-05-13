@@ -3,8 +3,7 @@ import { MediumText } from '../../constants/fontFamily';
 
 export const Container = styled.View`
   flex: 1;
-  margin-right: 40px;
-  margin-left: 40px;
+  margin: 0 30px;
   align-items: center;
   justify-content: center;
   background-color: #312e38;
