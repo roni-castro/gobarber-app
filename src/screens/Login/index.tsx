@@ -9,8 +9,8 @@ const Login: React.FC = () => {
     <Container>
       <Image source={Assets.Logo} />
       <Title>Faça seu logon</Title>
-      <Input name="email" icon={''} placeholder="Email" />
-      <Input name="password" icon={''} placeholder="Senha" secureTextEntry />
+      <Input name="email" icon="mail" placeholder="Email" />
+      <Input name="password" icon="lock" placeholder="Senha" secureTextEntry />
     </Container>
   );
 };
