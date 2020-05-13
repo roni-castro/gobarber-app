@@ -10,7 +10,12 @@ const Login: React.FC = () => {
     <Container>
       <Image source={Assets.Logo} />
       <Title>Faça seu logon</Title>
-      <Input name="email" icon="mail" placeholder="Email" />
+      <Input
+        name="email"
+        icon="mail"
+        placeholder="Email"
+        keyboardType="email-address"
+      />
       <Input name="password" icon="lock" placeholder="Senha" secureTextEntry />
       <Button onPress={() => console.warn('press')}>Entrar</Button>
     </Container>
