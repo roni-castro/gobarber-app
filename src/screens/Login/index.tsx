@@ -24,6 +24,7 @@ import { useNavigation } from '@react-navigation/native';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/mobile';
 import { mapValidationErrorToErrorObject } from '../../utils/errorObjectMapper';
+import { showSnackBar } from '../../utils/snackbar';
 
 interface LoginFormProps {
   email: string;
@@ -46,11 +47,13 @@ const Login: React.FC = () => {
       });
       await schema.validate(data, { abortEarly: false });
     } catch (error) {
-      console.warn(error);
       if (error instanceof Yup.ValidationError) {
         formRef.current?.setErrors(mapValidationErrorToErrorObject(error));
         return;
       }
+      showSnackBar({
+        text: `Erro ao fazer login. Verifique se o email ou senha estão corretos`,
+      });
     }
   }, []);
 
