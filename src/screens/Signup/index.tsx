@@ -6,7 +6,9 @@ import {
   ScrollView,
   View,
   TextInput,
+  Keyboard,
 } from 'react-native';
+import * as Yup from 'yup';
 import Assets from '../../assets/Assets';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
@@ -20,6 +22,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { Form } from '@unform/mobile';
 import { FormHandles } from '@unform/core';
+import { mapValidationErrorToErrorObject } from '../..//utils/errorObjectMapper';
 
 interface SignupFormProps {
   email: string;
@@ -33,8 +36,23 @@ const Signup: React.FC = () => {
   const emailInputRef = useRef<TextInput>(null);
   const passwordInputRef = useRef<TextInput>(null);
 
-  const handleOnSubmitForm = useCallback((data: SignupFormProps) => {
-    console.warn(data);
+  const handleOnSubmitForm = useCallback(async (data: SignupFormProps) => {
+    try {
+      formRef.current?.setErrors({});
+      const schema = Yup.object().shape({
+        name: Yup.string().required('Nome é obrigatório'),
+        email: Yup.string()
+          .required('E-mail é obrigatório')
+          .email('Digite um e-mail válido'),
+        password: Yup.string().min(6, 'Senha deve ter pelo menos 6 caracteres'),
+      });
+      await schema.validate(data, { abortEarly: false });
+    } catch (error) {
+      if (error instanceof Yup.ValidationError) {
+        formRef.current?.setErrors(mapValidationErrorToErrorObject(error));
+        return;
+      }
+    }
   }, []);
 
   return (
@@ -85,8 +103,10 @@ const Signup: React.FC = () => {
                 secureTextEntry
                 returnKeyType="send"
                 textContentType="newPassword"
+                blurOnSubmit={false}
                 onSubmitEditing={() => {
                   formRef.current?.submitForm();
+                  Keyboard.dismiss();
                 }}
               />
               <Button onPress={() => formRef.current?.submitForm()}>
