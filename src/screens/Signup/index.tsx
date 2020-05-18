@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useCallback } from 'react';
 import {
   Image,
   KeyboardAvoidingView,
@@ -17,9 +17,23 @@ import {
   Title,
 } from './styles';
 import { useNavigation } from '@react-navigation/native';
+import { Form } from '@unform/mobile';
+import { FormHandles } from '@unform/core';
+
+interface SignupFormProps {
+  email: string;
+  password: string;
+  name: string;
+}
 
 const Signup: React.FC = () => {
   const navigation = useNavigation();
+  const formRef = useRef<FormHandles>(null);
+
+  const handleOnSubmitForm = useCallback((data: SignupFormProps) => {
+    console.warn(data);
+  }, []);
+
   return (
     <>
       <KeyboardAvoidingView
@@ -36,20 +50,31 @@ const Signup: React.FC = () => {
             <View>
               <Title>Crie sua conta</Title>
             </View>
-            <Input name="name" icon="user" placeholder="Nome" />
-            <Input
-              name="email"
-              icon="mail"
-              placeholder="Email"
-              keyboardType="email-address"
-            />
-            <Input
-              name="password"
-              icon="lock"
-              placeholder="Senha"
-              secureTextEntry
-            />
-            <Button onPress={() => console.warn('press')}>Cadastrar</Button>
+            <Form ref={formRef} onSubmit={handleOnSubmitForm}>
+              <Input
+                name="name"
+                icon="user"
+                placeholder="Nome"
+                autoCapitalize="words"
+              />
+              <Input
+                name="email"
+                icon="mail"
+                placeholder="Email"
+                keyboardType="email-address"
+                autoCapitalize="none"
+                autoCorrect={false}
+              />
+              <Input
+                name="password"
+                icon="lock"
+                placeholder="Senha"
+                secureTextEntry
+              />
+              <Button onPress={() => formRef.current?.submitForm()}>
+                Cadastrar
+              </Button>
+            </Form>
           </Container>
         </ScrollView>
       </KeyboardAvoidingView>

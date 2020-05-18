@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useRef } from 'react';
 import {
   Image,
   KeyboardAvoidingView,
@@ -19,9 +19,22 @@ import {
   Title,
 } from './styles';
 import { useNavigation } from '@react-navigation/native';
+import { FormHandles } from '@unform/core';
+import { Form } from '@unform/mobile';
+
+interface LoginFormProps {
+  email: string;
+  password: string;
+}
 
 const Login: React.FC = () => {
   const navigation = useNavigation();
+  const formRef = useRef<FormHandles>(null);
+
+  const handleOnSubmitForm = useCallback((data: LoginFormProps) => {
+    console.warn(data);
+  }, []);
+
   return (
     <>
       <KeyboardAvoidingView
@@ -38,19 +51,25 @@ const Login: React.FC = () => {
             <View>
               <Title>Faça seu logon</Title>
             </View>
-            <Input
-              name="email"
-              icon="mail"
-              placeholder="Email"
-              keyboardType="email-address"
-            />
-            <Input
-              name="password"
-              icon="lock"
-              placeholder="Senha"
-              secureTextEntry
-            />
-            <Button onPress={() => console.warn('press')}>Entrar</Button>
+            <Form ref={formRef} onSubmit={handleOnSubmitForm}>
+              <Input
+                name="email"
+                icon="mail"
+                placeholder="Email"
+                keyboardType="email-address"
+                autoCapitalize="none"
+                autoCorrect={false}
+              />
+              <Input
+                name="password"
+                icon="lock"
+                placeholder="Senha"
+                secureTextEntry
+              />
+              <Button onPress={() => formRef.current?.submitForm()}>
+                Entrar
+              </Button>
+            </Form>
             <ForgotPasswordButton onPress={() => console.warn('forgot')}>
               <ForgotPasswordText>Esqueci minha senha</ForgotPasswordText>
             </ForgotPasswordButton>
