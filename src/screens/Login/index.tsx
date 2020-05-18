@@ -25,6 +25,7 @@ import { FormHandles } from '@unform/core';
 import { Form } from '@unform/mobile';
 import { mapValidationErrorToErrorObject } from '../../utils/errorObjectMapper';
 import { showSnackBar } from '../../utils/snackbar';
+import { useAuth } from '../../hooks/auth';
 
 interface LoginFormProps {
   email: string;
@@ -35,6 +36,7 @@ const Login: React.FC = () => {
   const navigation = useNavigation();
   const formRef = useRef<FormHandles>(null);
   const passwordInputRef = useRef<TextInput>(null);
+  const { signIn } = useAuth();
 
   const handleOnSubmitForm = useCallback(async (data: LoginFormProps) => {
     try {
@@ -46,6 +48,7 @@ const Login: React.FC = () => {
         password: Yup.string().required('Senha é obrigatória'),
       });
       await schema.validate(data, { abortEarly: false });
+      await signIn(data.email, data.password);
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
         formRef.current?.setErrors(mapValidationErrorToErrorObject(error));
