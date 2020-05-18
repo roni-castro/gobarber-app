@@ -84,6 +84,7 @@ const Signup: React.FC = () => {
                 placeholder="Senha"
                 secureTextEntry
                 returnKeyType="send"
+                textContentType="newPassword"
                 onSubmitEditing={() => {
                   formRef.current?.submitForm();
                 }}
