@@ -4,6 +4,7 @@ import styled, { css } from 'styled-components/native';
 interface InputProps {
   isFocused?: boolean;
   isFilled?: boolean;
+  isErrored?: boolean;
 }
 
 export const Container = styled.View<InputProps>`
@@ -13,6 +14,13 @@ export const Container = styled.View<InputProps>`
   border-radius: 10px;
   margin-bottom: 8px;
   background-color: #232129;
+
+  ${props =>
+    props.isErrored &&
+    css`
+      border-width: 2px;
+      border-color: #c53030;
+    `}
 
   ${props =>
     props.isFocused &&
