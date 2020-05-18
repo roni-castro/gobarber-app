@@ -5,6 +5,7 @@ import {
   Platform,
   ScrollView,
   View,
+  TextInput,
 } from 'react-native';
 import Assets from '../../assets/Assets';
 import Button from '../../components/Button';
@@ -29,6 +30,8 @@ interface SignupFormProps {
 const Signup: React.FC = () => {
   const navigation = useNavigation();
   const formRef = useRef<FormHandles>(null);
+  const emailInputRef = useRef<TextInput>(null);
+  const passwordInputRef = useRef<TextInput>(null);
 
   const handleOnSubmitForm = useCallback((data: SignupFormProps) => {
     console.warn(data);
@@ -56,20 +59,34 @@ const Signup: React.FC = () => {
                 icon="user"
                 placeholder="Nome"
                 autoCapitalize="words"
+                returnKeyType="next"
+                onSubmitEditing={() => {
+                  emailInputRef.current?.focus();
+                }}
               />
               <Input
+                ref={emailInputRef}
                 name="email"
                 icon="mail"
                 placeholder="Email"
                 keyboardType="email-address"
                 autoCapitalize="none"
                 autoCorrect={false}
+                returnKeyType="next"
+                onSubmitEditing={() => {
+                  passwordInputRef.current?.focus();
+                }}
               />
               <Input
+                ref={passwordInputRef}
                 name="password"
                 icon="lock"
                 placeholder="Senha"
                 secureTextEntry
+                returnKeyType="send"
+                onSubmitEditing={() => {
+                  formRef.current?.submitForm();
+                }}
               />
               <Button onPress={() => formRef.current?.submitForm()}>
                 Cadastrar

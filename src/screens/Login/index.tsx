@@ -5,6 +5,7 @@ import {
   Platform,
   ScrollView,
   View,
+  TextInput,
 } from 'react-native';
 import Assets from '../../assets/Assets';
 import Button from '../../components/Button';
@@ -30,6 +31,7 @@ interface LoginFormProps {
 const Login: React.FC = () => {
   const navigation = useNavigation();
   const formRef = useRef<FormHandles>(null);
+  const passwordInputRef = useRef<TextInput>(null);
 
   const handleOnSubmitForm = useCallback((data: LoginFormProps) => {
     console.warn(data);
@@ -59,12 +61,21 @@ const Login: React.FC = () => {
                 keyboardType="email-address"
                 autoCapitalize="none"
                 autoCorrect={false}
+                returnKeyType="next"
+                onSubmitEditing={() => {
+                  passwordInputRef.current?.focus();
+                }}
               />
               <Input
+                ref={passwordInputRef}
                 name="password"
                 icon="lock"
                 placeholder="Senha"
                 secureTextEntry
+                returnKeyType="send"
+                onSubmitEditing={() => {
+                  formRef.current?.submitForm();
+                }}
               />
               <Button onPress={() => formRef.current?.submitForm()}>
                 Entrar
