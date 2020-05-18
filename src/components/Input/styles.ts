@@ -14,6 +14,8 @@ export const Container = styled.View<InputProps>`
   border-radius: 10px;
   margin-bottom: 8px;
   background-color: #232129;
+  border-width: 2px;
+  border-color: #232129;
 
   ${props =>
     props.isErrored &&
@@ -44,7 +46,7 @@ export const TextInput = styled.TextInput.attrs<InputProps>({
 
 export const Icon = styled(FeatherIcon)<InputProps>`
   ${props =>
-    props.isFilled
+    props.isFilled || props.isFocused
       ? css`
           color: #ff9000;
         `
