@@ -7,6 +7,7 @@ import {
   View,
   TextInput,
 } from 'react-native';
+import * as Yup from 'yup';
 import Assets from '../../assets/Assets';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
@@ -22,6 +23,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/mobile';
+import { mapValidationErrorToErrorObject } from '../../utils/errorObjectMapper';
 
 interface LoginFormProps {
   email: string;
@@ -33,8 +35,23 @@ const Login: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const passwordInputRef = useRef<TextInput>(null);
 
-  const handleOnSubmitForm = useCallback((data: LoginFormProps) => {
-    console.warn(data);
+  const handleOnSubmitForm = useCallback(async (data: LoginFormProps) => {
+    try {
+      formRef.current?.setErrors({});
+      const schema = Yup.object().shape({
+        email: Yup.string()
+          .required('E-mail é obrigatório')
+          .email('Digite um e-mail válido'),
+        password: Yup.string().required('Senha é obrigatória'),
+      });
+      await schema.validate(data, { abortEarly: false });
+    } catch (error) {
+      console.warn(error);
+      if (error instanceof Yup.ValidationError) {
+        formRef.current?.setErrors(mapValidationErrorToErrorObject(error));
+        return;
+      }
+    }
   }, []);
 
   return (
