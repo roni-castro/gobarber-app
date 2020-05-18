@@ -1,29 +1,31 @@
-import React, { useRef, useCallback } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { FormHandles } from '@unform/core';
+import { Form } from '@unform/mobile';
+import React, { useCallback, useRef } from 'react';
 import {
   Image,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-  View,
   TextInput,
+  View,
+  Keyboard,
 } from 'react-native';
 import Snackbar from 'react-native-snackbar';
 import * as Yup from 'yup';
+import api from '../../data/api';
 import Assets from '../../assets/Assets';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
+import { mapValidationErrorToErrorObject } from '../../utils/errorObjectMapper';
+import { showSnackBar } from '../../utils/snackbar';
 import {
-  Container,
   BackToLoginButton,
   BackToLoginText,
+  Container,
   Icon,
   Title,
 } from './styles';
-import { useNavigation } from '@react-navigation/native';
-import { Form } from '@unform/mobile';
-import { FormHandles } from '@unform/core';
-import { mapValidationErrorToErrorObject } from '../../utils/errorObjectMapper';
-import { showSnackBar } from '../../utils/snackbar';
 
 interface SignupFormProps {
   email: string;
@@ -48,11 +50,11 @@ const Signup: React.FC = () => {
         password: Yup.string().min(6, 'Senha deve ter pelo menos 6 caracteres'),
       });
       await schema.validate(data, { abortEarly: false });
-
+      await api.post('/users', data);
       showSnackBar({
         text: 'Cadastro realizado com sucesso. Você já pode fazer seu logon',
-        duration: Snackbar.LENGTH_INDEFINITE,
       });
+      navigation.goBack();
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
         formRef.current?.setErrors(mapValidationErrorToErrorObject(error));
