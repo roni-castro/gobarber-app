@@ -1,11 +1,6 @@
-export interface AuthDTO {
-  user: UserDTO;
-  token: string;
-}
+import UserData from './UserData';
 
-export interface UserDTO {
-  id: string;
-  email: string;
-  name: string;
-  avatar_url: string;
+export interface AuthDTO {
+  user: UserData;
+  token: string;
 }

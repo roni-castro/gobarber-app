@@ -6,7 +6,8 @@ import React, {
   useEffect,
 } from 'react';
 import api from '../data/api';
-import { AuthDTO, UserDTO } from '../data/models/AuthDTO';
+import { AuthDTO } from '../data/models/AuthDTO';
+import UserData from '../data/models/UserData';
 import { USER_INFO, TOKEN } from '../data/auth/authStorageConstants';
 import {
   getStorageItem,
@@ -15,7 +16,7 @@ import {
 } from '../utils/storage';
 
 interface Auth {
-  user: UserDTO;
+  user: UserData;
   token: string;
 }
 
@@ -45,7 +46,7 @@ const AuthProvider: React.FC = (props: any) => {
   useEffect(() => {
     const loadStorageAuthData = async () => {
       setIsLoading(true);
-      const user = await getStorageItem<UserDTO>(USER_INFO);
+      const user = await getStorageItem<UserData>(USER_INFO);
       const token = await getStorageItem<string>(TOKEN);
       if (user && token) {
         setAuth({ user, token });
