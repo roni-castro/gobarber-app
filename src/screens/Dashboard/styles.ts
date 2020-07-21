@@ -1,5 +1,4 @@
 import styled from 'styled-components/native';
-import FeatherIcon from 'react-native-vector-icons/Feather';
 
 export const Container = styled.View`
   flex: 1;
@@ -33,26 +32,38 @@ export const UserAvatar = styled.Image`
   border-radius: 28px;
 `;
 
-export const ProviderCard = styled.View`
+export const ProviderListTitle = styled.Text`
+  color: #f4ede8;
+  font-size: 24px;
+  font-family: 'RobotoSlab-Medium';
+  margin: 20px;
+`;
+
+export const ProviderCard = styled.TouchableOpacity`
   flex-direction: row;
-  align-items: center;
   background-color: #3e3b47;
-  margin: 16px 16px 4px;
-  padding: 16px;
+  margin: 0px 16px 16px;
+  padding: 20px;
   border-radius: 10px;
 `;
 
 export const ProviderInfoContainer = styled.View`
   flex: 1;
+  margin-left: 20px;
 `;
 
 export const ProviderAvatar = styled.Image`
-  height: 64px;
-  width: 64px;
+  height: 72px;
+  width: 72px;
   background-color: #232129;
-  border-radius: 32px;
-  margin-right: 16px;
+  border-radius: 36px;
   align-self: flex-start;
+`;
+
+export const ProviderName = styled.Text`
+  color: #f4ede8;
+  font-size: 18px;
+  font-family: 'RobotoSlab-Medium';
 `;
 
 export const ProviderAvailabilityContainer = styled.View`
@@ -61,20 +72,9 @@ export const ProviderAvailabilityContainer = styled.View`
   margin-top: 4px;
 `;
 
-export const ProviderAvailabilityIcon = styled(FeatherIcon)`
-  color: #ff9000;
-  margin-right: 8px;
-`;
-
-export const ProviderTitle = styled.Text`
-  color: #f4ede8;
-  font-size: 16px;
-  font-family: 'RobotoSlab-Medium';
-  margin-bottom: 8px;
-`;
-
 export const ProviderAvailabilityText = styled.Text`
   color: #999591;
+  margin-left: 8px;
   font-size: 14px;
   line-height: 24px;
   font-family: 'RobotoSlab-Regular';

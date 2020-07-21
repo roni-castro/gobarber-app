@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useCallback, useEffect, useState } from 'react';
 import { FlatList } from 'react-native';
+import FeatherIcon from 'react-native-vector-icons/Feather';
 import AppointmentData from '../../data/models/AppointmentData';
 import UserData from '../../data/models/UserData';
 import { getProviders } from '../../data/services/providers/providers';
@@ -12,13 +13,13 @@ import {
   ProfileButton,
   UserAvatar,
   UserName,
+  ProviderListTitle,
   ProviderCard,
   ProviderAvatar,
-  ProviderTitle,
+  ProviderName,
   ProviderInfoContainer,
   ProviderAvailabilityContainer,
   ProviderAvailabilityText,
-  ProviderAvailabilityIcon,
 } from './styles';
 
 const Dashboard: React.FC = () => {
@@ -40,6 +41,10 @@ const Dashboard: React.FC = () => {
     navigate('Profile');
   }, [navigate]);
 
+  const handleProviderCardPress = useCallback((providerId: string) => {
+    navigate('CreateAppointment', { providerId });
+  }, []);
+
   return (
     <Container>
       <Header>
@@ -55,20 +60,23 @@ const Dashboard: React.FC = () => {
       <FlatList
         data={providers}
         keyExtractor={provider => provider.id}
+        ListHeaderComponent={
+          <ProviderListTitle>Cabelereiros</ProviderListTitle>
+        }
         renderItem={({ item: provider }) => {
           return (
-            <ProviderCard>
+            <ProviderCard onPress={() => handleProviderCardPress(provider.id)}>
               <ProviderAvatar source={{ uri: provider.avatar_url }} />
               <ProviderInfoContainer>
-                <ProviderTitle>{provider.name}</ProviderTitle>
+                <ProviderName>{provider.name}</ProviderName>
                 <ProviderAvailabilityContainer>
-                  <ProviderAvailabilityIcon name="calendar" size={18} />
+                  <FeatherIcon name="calendar" size={14} color="#FF9000" />
                   <ProviderAvailabilityText>
                     Segunda à sexta
                   </ProviderAvailabilityText>
                 </ProviderAvailabilityContainer>
                 <ProviderAvailabilityContainer>
-                  <ProviderAvailabilityIcon name="clock" size={18} />
+                  <FeatherIcon name="clock" size={14} color="#FF9000" />
                   <ProviderAvailabilityText>8h às 18h</ProviderAvailabilityText>
                 </ProviderAvailabilityContainer>
               </ProviderInfoContainer>
