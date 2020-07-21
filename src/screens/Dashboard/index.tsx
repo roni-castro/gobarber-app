@@ -12,6 +12,13 @@ import {
   ProfileButton,
   UserAvatar,
   UserName,
+  ProviderCard,
+  ProviderAvatar,
+  ProviderTitle,
+  ProviderInfoContainer,
+  ProviderAvailabilityContainer,
+  ProviderAvailabilityText,
+  ProviderAvailabilityIcon,
 } from './styles';
 
 const Dashboard: React.FC = () => {
@@ -49,7 +56,24 @@ const Dashboard: React.FC = () => {
         data={providers}
         keyExtractor={provider => provider.id}
         renderItem={({ item: provider }) => {
-          return <HeaderTitle>{provider.name}</HeaderTitle>;
+          return (
+            <ProviderCard>
+              <ProviderAvatar source={{ uri: provider.avatar_url }} />
+              <ProviderInfoContainer>
+                <ProviderTitle>{provider.name}</ProviderTitle>
+                <ProviderAvailabilityContainer>
+                  <ProviderAvailabilityIcon name="calendar" size={18} />
+                  <ProviderAvailabilityText>
+                    Segunda à sexta
+                  </ProviderAvailabilityText>
+                </ProviderAvailabilityContainer>
+                <ProviderAvailabilityContainer>
+                  <ProviderAvailabilityIcon name="clock" size={18} />
+                  <ProviderAvailabilityText>8h às 18h</ProviderAvailabilityText>
+                </ProviderAvailabilityContainer>
+              </ProviderInfoContainer>
+            </ProviderCard>
+          );
         }}
       />
     </Container>
