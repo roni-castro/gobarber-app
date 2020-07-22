@@ -1,12 +1,21 @@
 import styled from 'styled-components/native';
+import { FlatList } from 'react-native-gesture-handler';
+import { Provider } from './index';
 
-export const Container = styled.View`
-  flex: 1;
-`;
+interface ProviderCardProps {
+  isSelected: boolean;
+}
+
+interface ProviderCardNameProps {
+  isSelected: boolean;
+}
+
+export const Container = styled.View``;
 
 export const Header = styled.View`
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
   padding: 24px;
   background-color: #28262e;
 `;
@@ -22,7 +31,6 @@ export const HeaderTitle = styled.Text`
   flex: 1;
   font-size: 20px;
   font-family: 'RobotoSlab-Medium';
-  line-height: 28px;
   color: #f4ede8;
   margin-left: 8px;
 `;
@@ -31,6 +39,35 @@ export const ProviderAvatar = styled.Image`
   width: 58px;
   height: 58px;
   border-radius: 29px;
+  margin-left: auto;
+`;
+
+export const ProviderList = styled(FlatList as new () => FlatList<Provider>)`
+  padding: 32px 24px 16px;
+`;
+
+export const ProviderCard = styled.TouchableOpacity<ProviderCardProps>`
+  flex: 1;
+  max-width: 250px;
+  flex-direction: row;
+  align-items: center;
+  background-color: ${props => (props.isSelected ? '#FF9000' : '#28262e')};
+  border-radius: 10px;
+  padding: 16px;
+  margin-right: 16px;
+`;
+
+export const ProviderCardAvatar = styled.Image`
+  width: 28px;
+  height: 28px;
+  border-radius: 14px;
+  background-color: #f4ede8;
+`;
+
+export const ProviderCardName = styled.Text<ProviderCardNameProps>`
+  font-size: 16px;
+  font-family: 'RobotoSlab-Medium';
+  color: ${props => (props.isSelected ? '#232129' : '#f4ede8')};
   margin-left: 10px;
-  background-color: red;
+  margin-right: 10px;
 `;
