@@ -71,3 +71,28 @@ export const ProviderCardName = styled.Text<ProviderCardNameProps>`
   margin-left: 10px;
   margin-right: 10px;
 `;
+
+export const Calendar = styled.View``;
+
+export const CalendarTitle = styled.Text`
+  font-size: 24px;
+  font-family: 'RobotoSlab-Medium';
+  color: #f4ede8;
+  margin: 0px 24px 24px;
+`;
+
+export const OpenDatePickerButton = styled.TouchableOpacity`
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  background: #ff9000;
+  margin: 0px 24px 24px;
+  padding: 16px;
+`;
+
+export const OpenDatePickerText = styled.Text`
+  font-size: 16px;
+  font-family: 'RobotoSlab-Medium';
+  color: #f4ede8;
+`;
