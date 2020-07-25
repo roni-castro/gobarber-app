@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import { FlatList } from 'react-native-gesture-handler';
+import { FlatList, RectButton } from 'react-native-gesture-handler';
 import { Provider } from './index';
 
 interface ProviderCardProps {
@@ -9,8 +9,14 @@ interface ProviderCardProps {
 interface ProviderCardNameProps {
   isSelected: boolean;
 }
+interface ScheduleHourProps {
+  available: boolean;
+  selected: boolean;
+}
 
-export const Container = styled.View``;
+interface ScheduleHourTextProps {
+  selected: boolean;
+}
 
 export const Header = styled.View`
   flex-direction: row;
@@ -42,8 +48,10 @@ export const ProviderAvatar = styled.Image`
   margin-left: auto;
 `;
 
+export const Container = styled.ScrollView``;
+
 export const ProviderList = styled(FlatList as new () => FlatList<Provider>)`
-  padding: 32px 24px 16px;
+  padding: 32px 16px 16px;
 `;
 
 export const ProviderCard = styled.TouchableOpacity<ProviderCardProps>`
@@ -78,7 +86,7 @@ export const CalendarTitle = styled.Text`
   font-size: 24px;
   font-family: 'RobotoSlab-Medium';
   color: #f4ede8;
-  margin: 0px 24px 24px;
+  margin: 24px 16px;
 `;
 
 export const OpenDatePickerButton = styled.TouchableOpacity`
@@ -87,12 +95,52 @@ export const OpenDatePickerButton = styled.TouchableOpacity`
   justify-content: center;
   font-size: 24px;
   background: #ff9000;
-  margin: 0px 24px 24px;
+  margin: 0px 16px 24px;
   padding: 16px;
 `;
 
 export const OpenDatePickerText = styled.Text`
   font-size: 16px;
   font-family: 'RobotoSlab-Medium';
+  color: #28262e;
+`;
+
+export const Schedule = styled.View``;
+
+export const ScheduleTitle = styled.Text`
+  margin: 0px 16px 16px;
+  font-size: 24px;
+  font-family: 'RobotoSlab-Medium';
   color: #f4ede8;
+`;
+
+export const ScheduleSection = styled.View`
+  margin-bottom: 0px;
+`;
+
+export const ScheduleSectionContent = styled.ScrollView.attrs({
+  contentContainerStyle: { padding: 24 },
+  horizontal: true,
+  showsHorizontalScrollIndicator: false,
+})``;
+
+export const ScheduleSectionTitle = styled.Text`
+  font-size: 18px;
+  color: #999591;
+  font-family: 'RobotoSlab-Regular';
+  margin: 0px 16px;
+`;
+
+export const ScheduleHourContainer = styled(RectButton)<ScheduleHourProps>`
+  padding: 12px;
+  border-radius: 10px;
+  margin-right: 8px;
+  opacity: ${props => (props.available ? 1 : 0.3)};
+  background-color: ${props => (props.selected ? '#FF9000' : '#3e3b47')};
+`;
+
+export const ScheduleHour = styled.Text<ScheduleHourTextProps>`
+  font-size: 16px;
+  color: ${props => (props.selected ? '#28262e' : '#f4ede8')};
+  font-family: 'RobotoSlab-Medium';
 `;
