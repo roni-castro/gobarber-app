@@ -41,15 +41,19 @@ const Dashboard: React.FC = () => {
     navigate('Profile');
   }, [navigate]);
 
-  const handleProviderCardPress = useCallback((providerId: string) => {
-    navigate('CreateAppointment', { providerId });
-  }, []);
+  const handleProviderCardPress = useCallback(
+    (providerId: string) => {
+      navigate('CreateAppointment', { providerId });
+    },
+    [navigate],
+  );
 
   return (
     <Container>
       <Header>
         <HeaderTitle>
-          Bem vindo,{'\n'}
+          Bem vindo,
+          {'\n'}
           <UserName>{user.name}</UserName>
         </HeaderTitle>
         <ProfileButton onPress={navigateToProfile}>
