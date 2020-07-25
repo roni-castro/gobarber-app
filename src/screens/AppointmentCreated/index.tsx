@@ -17,7 +17,13 @@ const AppointmentCreated: React.FC = () => {
   const route = useRoute();
   const { date: dateTimestamp, providerName } = route.params as RouteParams;
 
-  const scheduledDate = useMemo(() => new Date(dateTimestamp), [dateTimestamp]);
+  const formattedDate = useMemo(() => {
+    return format(
+      new Date(dateTimestamp),
+      "EEEE', dia' dd 'de' LLLL 'de' yyyy 'às' HH:mm'h'",
+      { locale: ptBR },
+    );
+  }, [dateTimestamp]);
 
   const handleOkPressed = useCallback(() => {
     navigation.reset({
@@ -30,13 +36,7 @@ const AppointmentCreated: React.FC = () => {
     <Container>
       <Icon name="check" size={80} color="#32CD32" />
       <Title>Agendamento concluído</Title>
-      <Subtitle>
-        {`${format(
-          scheduledDate,
-          "EEEE', dia' dd 'de' LLLL 'de' yyyy 'às' HH:mm'h'",
-          { locale: ptBR },
-        )} com ${providerName}`}
-      </Subtitle>
+      <Subtitle>{`${formattedDate}, com ${providerName}`}</Subtitle>
       <OkButton onPress={handleOkPressed}>
         <OkButtonText>Ok</OkButtonText>
       </OkButton>
