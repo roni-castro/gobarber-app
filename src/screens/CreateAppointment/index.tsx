@@ -142,16 +142,28 @@ const CreateAppointment: React.FC = () => {
         provider_id: selectedProviderId,
         date,
       });
-      showSnackBar({
-        text: 'Agendamento realizado com sucesso!',
+      const provider = providers.find(
+        currProvider => currProvider.id === selectedProviderId,
+      );
+      navigation.reset({
+        routes: [
+          { name: 'Dashboard' },
+          {
+            name: 'AppointmentCreated',
+            params: {
+              date: date.getTime(),
+              providerName: provider?.name,
+            },
+          },
+        ],
+        index: 1,
       });
-      navigation.navigate('AppointmentCreated', { date: date.getTime() });
     } catch (error) {
       showSnackBar({
         text: `Erro ao criar agendamento: ${error}`,
       });
     }
-  }, [navigation, selectedProviderId, selectedHour, selectedDate]);
+  }, [navigation, selectedProviderId, selectedHour, selectedDate, providers]);
 
   const morningAvailabilities = useMemo(() => {
     return providerAvailabilities.filter(({ hour }) => hour < 12);

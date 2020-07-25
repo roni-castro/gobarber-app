@@ -28,6 +28,7 @@
     "react/jsx-props-no-spreading": "off",
     "react/prop-types": "off",
     "no-unused-expressions": "off",
+    "import/no-duplicates": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "react/jsx-filename-extension": [
