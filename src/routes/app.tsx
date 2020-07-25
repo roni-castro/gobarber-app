@@ -1,10 +1,10 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
+import { SafeAreaView, StatusBar } from 'react-native';
 import Dashboard from '../screens/Dashboard';
 import CreateAppointment from '../screens/CreateAppointment';
 import AppointmentCreated from '../screens/AppointmentCreated';
 import Profile from '../screens/Profile';
-import { SafeAreaView, StatusBar } from 'react-native';
 
 const App = createStackNavigator();
 

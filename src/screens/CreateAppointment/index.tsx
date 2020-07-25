@@ -26,10 +26,14 @@ import {
   ScheduleSectionContent,
   ScheduleHourContainer,
   ScheduleHour,
+  CreateAppointmentButton,
+  CreateAppointmentButtonText,
 } from './styles';
 import { getProviders } from '../../data/services/providers/providers';
 import { useAuth } from '../../hooks/auth';
 import { getProviderDayAvailability } from '../../data/services/providers/providerDayAvailalbility';
+import { createAppointment } from '../../data/services/appointments/createAppointments';
+import { showSnackBar } from '../../utils/snackbar';
 
 export interface Provider {
   id: string;
@@ -125,6 +129,29 @@ const CreateAppointment: React.FC = () => {
   const handleSelectedHour = useCallback((hour: number) => {
     setSelectedHour(hour);
   }, []);
+
+  const handleCreateAppointment = useCallback(async () => {
+    if (!selectedHour) {
+      return;
+    }
+    try {
+      const date = new Date(selectedDate);
+      date.setHours(selectedHour);
+      date.setMinutes(0);
+      await createAppointment({
+        provider_id: selectedProviderId,
+        date,
+      });
+      showSnackBar({
+        text: 'Agendamento realizado com sucesso!',
+      });
+      navigation.navigate('AppointmentCreated', { date: date.getTime() });
+    } catch (error) {
+      showSnackBar({
+        text: `Erro ao criar agendamento: ${error}`,
+      });
+    }
+  }, [navigation, selectedProviderId, selectedHour, selectedDate]);
 
   const morningAvailabilities = useMemo(() => {
     return providerAvailabilities.filter(({ hour }) => hour < 12);
@@ -231,6 +258,12 @@ const CreateAppointment: React.FC = () => {
             )}
           </ScheduleSectionContent>
         </ScheduleSection>
+        <CreateAppointmentButton
+          enabled={!!selectedHour}
+          onPress={handleCreateAppointment}
+        >
+          <CreateAppointmentButtonText>Agendar</CreateAppointmentButtonText>
+        </CreateAppointmentButton>
       </Container>
     </>
   );
