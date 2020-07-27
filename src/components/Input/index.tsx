@@ -7,11 +7,13 @@ import React, {
   useCallback,
 } from 'react';
 import { TextInputProps } from 'react-native';
-import { Container, TextInput, Icon } from './styles';
 import { useField } from '@unform/core';
+import { Container, TextInput, Icon } from './styles';
+
 export interface InputProps extends TextInputProps {
   name: string;
   icon?: string;
+  containerStyle?: object;
 }
 
 interface InputValueReference {
@@ -23,7 +25,7 @@ interface InputRef {
 }
 
 const Input: React.RefForwardingComponent<InputRef, InputProps> = (
-  { name, icon, ...rest },
+  { name, icon, containerStyle, ...rest },
   ref,
 ) => {
   const inputElementRef = useRef<any>(null);
@@ -40,7 +42,7 @@ const Input: React.RefForwardingComponent<InputRef, InputProps> = (
 
   useEffect(() => {
     setIsFilled(!!inputValueRef.current.value);
-  });
+  }, [inputValueRef.current.value]);
 
   useEffect(() => {
     registerField<string>({
@@ -58,7 +60,7 @@ const Input: React.RefForwardingComponent<InputRef, InputProps> = (
         inputElementRef.current.clear();
       },
     });
-  }, [fieldName, inputValueRef, inputElementRef]);
+  }, [fieldName, inputValueRef, inputElementRef, registerField]);
 
   const handleOnFocus = useCallback(() => {
     setIsFocused(true);
@@ -69,7 +71,7 @@ const Input: React.RefForwardingComponent<InputRef, InputProps> = (
   }, []);
 
   return (
-    <Container isFocused={isFocused} isErrored={!!error}>
+    <Container isFocused={isFocused} isErrored={!!error} style={containerStyle}>
       {icon && (
         <Icon name={icon} size={20} isFilled={isFilled} isFocused={isFocused} />
       )}
