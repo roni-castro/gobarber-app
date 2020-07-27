@@ -57,7 +57,7 @@ const Dashboard: React.FC = () => {
           <UserName>{user.name}</UserName>
         </HeaderTitle>
         <ProfileButton onPress={navigateToProfile}>
-          <UserAvatar source={{ uri: user.avatar_url }} />
+          <UserAvatar source={{ uri: user.avatar_url || undefined }} />
         </ProfileButton>
       </Header>
 
@@ -70,7 +70,9 @@ const Dashboard: React.FC = () => {
         renderItem={({ item: provider }) => {
           return (
             <ProviderCard onPress={() => handleProviderCardPress(provider.id)}>
-              <ProviderAvatar source={{ uri: provider.avatar_url }} />
+              <ProviderAvatar
+                source={{ uri: provider.avatar_url || undefined }}
+              />
               <ProviderInfoContainer>
                 <ProviderName>{provider.name}</ProviderName>
                 <ProviderAvailabilityContainer>
