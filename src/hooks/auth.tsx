@@ -14,10 +14,18 @@ import {
   setStorageItem,
   removeStorageItem,
 } from '../utils/storage';
+import { updateUserInfo, updateAvatar } from '../data/services/user/profile';
 
 interface Auth {
   user: UserData;
   token: string;
+}
+interface UpdateUserInfoParams {
+  name: string;
+  email: string;
+  oldPassword?: string;
+  password?: string;
+  passwordConfirmation?: string;
 }
 
 interface AuthContextData {
@@ -25,13 +33,14 @@ interface AuthContextData {
   isLoading: boolean;
   signIn(email: string, password: string): Promise<Auth>;
   signOut(): void;
+  updateUserProfile(data: UpdateUserInfoParams): Promise<void>;
+  updateUserAvatar(formData: FormData): Promise<void>;
 }
-
 const defaultValue = {} as AuthContextData;
 
 const AuthContext = createContext(defaultValue);
 
-const useAuth = () => {
+const useAuth = (): AuthContextData => {
   const context = useContext(AuthContext);
   if (!context) {
     throw new Error('useAuth must be used within an AuthProvider');
@@ -77,9 +86,34 @@ const AuthProvider: React.FC = (props: any) => {
     setAuth({} as Auth);
   }, []);
 
+  const updateUserAvatar = useCallback(async (formData: FormData) => {
+    const user = await updateAvatar(formData);
+    setStorageItem(USER_INFO, user);
+    setAuth(preAuth => ({
+      ...preAuth,
+      user,
+    }));
+  }, []);
+
+  const updateUserProfile = useCallback(async (data: UpdateUserInfoParams) => {
+    const user = await updateUserInfo(data);
+    setStorageItem(USER_INFO, user);
+    setAuth(prevAuth => ({
+      ...prevAuth,
+      user,
+    }));
+  }, []);
+
   return (
     <AuthContext.Provider
-      value={{ auth, isLoading, signIn, signOut }}
+      value={{
+        auth,
+        isLoading,
+        signIn,
+        signOut,
+        updateUserProfile,
+        updateUserAvatar,
+      }}
       {...props}
     />
   );
