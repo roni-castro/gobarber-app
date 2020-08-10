@@ -7,6 +7,7 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
+    "test:coverage": "jest --coverage",
     "lint": "eslint --fix --ext .js --ext .jsx --ext .ts --ext .tsx src/"
   },
   "dependencies": {
@@ -74,8 +75,18 @@
       "json",
       "node"
     ],
+    "collectCoverageFrom": [
+      "src/screens/**/*.tsx",
+      "src/components/**/*.tsx",
+      "src/hooks/**/*.tsx",
+      "!src/hooks/index.tsx"
+    ],
     "setupFilesAfterEnv": [
       "@testing-library/jest-native/extend-expect"
+    ],
+    "setupFiles": [
+      "./src/setupTests.ts",
+      "./node_modules/react-native-gesture-handler/jestSetup.js"
     ]
   }
 }
