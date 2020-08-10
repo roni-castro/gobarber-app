@@ -8,6 +8,9 @@ import {
   TextInput,
 } from 'react-native';
 import * as Yup from 'yup';
+import { useNavigation } from '@react-navigation/native';
+import { FormHandles } from '@unform/core';
+import { Form } from '@unform/mobile';
 import Assets from '../../assets/Assets';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
@@ -20,9 +23,6 @@ import {
   Icon,
   Title,
 } from './styles';
-import { useNavigation } from '@react-navigation/native';
-import { FormHandles } from '@unform/core';
-import { Form } from '@unform/mobile';
 import { mapValidationErrorToErrorObject } from '../../utils/errorObjectMapper';
 import { showSnackBar } from '../../utils/snackbar';
 import { useAuth } from '../../hooks/auth';
