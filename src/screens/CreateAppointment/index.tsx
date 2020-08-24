@@ -136,9 +136,12 @@ const CreateAppointment: React.FC = () => {
       return;
     }
     try {
-      const date = new Date(selectedDate);
-      date.setHours(selectedHour);
-      date.setMinutes(0);
+      const date = new Date(
+        selectedDate.getFullYear(),
+        selectedDate.getMonth(),
+        selectedDate.getDate(),
+      );
+      date.setUTCHours(selectedHour, 0, 0, 0);
       await createAppointment({
         provider_id: selectedProviderId,
         date,
@@ -161,7 +164,7 @@ const CreateAppointment: React.FC = () => {
       });
     } catch (error) {
       showSnackBar({
-        text: `Erro ao criar agendamento: ${error}`,
+        text: `Erro ao criar agendamento: ${error?.response?.data?.message}`,
       });
     }
   }, [navigation, selectedProviderId, selectedHour, selectedDate, providers]);
