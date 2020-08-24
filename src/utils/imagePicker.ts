@@ -9,6 +9,12 @@ export const openImagePickerAndGetUri = (): Promise<string | undefined> => {
         cancelButtonTitle: 'Cancelar',
         takePhotoButtonTitle: 'Tirar foto',
         chooseFromLibraryButtonTitle: 'Escolher da galeria',
+        permissionDenied: {
+          title: 'Permissão negada',
+          text: 'Permissão necessária para poder atualizar a foto',
+          reTryTitle: 'Tentar novamente',
+          okTitle: 'Tenho certeza',
+        },
         storageOptions: {
           skipBackup: true,
           path: 'images',
@@ -33,7 +39,7 @@ export const openImagePickerAndGetUri = (): Promise<string | undefined> => {
             resolve(croppedImage.path);
           })
           .catch(() => {
-            resolve(undefined);
+            resolve(response.uri);
           });
       },
     );

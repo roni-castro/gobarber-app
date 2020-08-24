@@ -115,7 +115,7 @@ const Profile: React.FC = () => {
         await updateUserAvatar(data);
       }
     } catch (error) {
-      showSnackBar({ text: `Erro ao recortar imagem ${error}` });
+      showSnackBar({ text: `${error}` });
     }
   }, [user.id, updateUserAvatar]);
 
