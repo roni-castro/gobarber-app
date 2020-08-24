@@ -2,7 +2,6 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useCallback, useEffect, useState } from 'react';
 import { FlatList } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
-import AppointmentData from '../../data/models/AppointmentData';
 import UserData from '../../data/models/UserData';
 import { getProviders } from '../../data/services/providers/providers';
 import { useAuth } from '../../hooks/auth';
@@ -24,10 +23,8 @@ import {
 
 const Dashboard: React.FC = () => {
   const [providers, setProviders] = useState<UserData[]>([]);
-  const [appointments, setAppointments] = useState<AppointmentData[]>([]);
   const {
     auth: { user },
-    signOut,
   } = useAuth();
   const { navigate } = useNavigation();
 
