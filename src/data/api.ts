@@ -4,7 +4,7 @@ import EventPublisher from '../utils/eventPublisher';
 import { TOKEN } from './auth/authStorageConstants';
 
 const api = axios.create({
-  baseURL: 'http://localhost:3333',
+  baseURL: 'https://gobarber-api.roni.app',
 });
 
 api.interceptors.request.use(
@@ -32,7 +32,7 @@ api.interceptors.response.use(
     return response;
   },
   function onRejected(error) {
-    if (error.response.status === 401) {
+    if (error.response?.status === 401) {
       emitTokenExpiredEvent();
     }
     return Promise.reject(error);
