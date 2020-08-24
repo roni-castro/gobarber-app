@@ -105,6 +105,14 @@ export const OpenDatePickerText = styled.Text`
   color: #28262e;
 `;
 
+export const SelectedDateText = styled.Text`
+  font-size: 16px;
+  font-family: 'RobotoSlab-Medium';
+  color: #f4ede8;
+  text-align: center;
+  margin: 0px 16px 16px;
+`;
+
 export const Schedule = styled.View``;
 
 export const ScheduleTitle = styled.Text`

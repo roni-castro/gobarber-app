@@ -26,6 +26,7 @@ import {
   ScheduleSectionContent,
   ScheduleHourContainer,
   ScheduleHour,
+  SelectedDateText,
   CreateAppointmentButton,
   CreateAppointmentButtonText,
 } from './styles';
@@ -214,6 +215,9 @@ const CreateAppointment: React.FC = () => {
         />
         <Calendar>
           <CalendarTitle>Escolha a data</CalendarTitle>
+          <SelectedDateText>
+            {`${format(selectedDate, 'dd/MM/yyyy')}`}
+          </SelectedDateText>
           <OpenDatePickerButton onPress={handleDatePickerToogle}>
             <OpenDatePickerText>Selecionar outra data</OpenDatePickerText>
           </OpenDatePickerButton>
@@ -224,6 +228,7 @@ const CreateAppointment: React.FC = () => {
               value={selectedDate}
               onChange={handleDateChange}
               textColor="#f4ede8"
+              minimumDate={new Date()}
             />
           )}
         </Calendar>
