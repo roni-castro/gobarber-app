@@ -15,6 +15,7 @@ import {
   removeStorageItem,
 } from '../utils/storage';
 import { updateUserInfo, updateAvatar } from '../data/services/user/profile';
+import EventPublisher from '../utils/eventPublisher';
 
 interface Auth {
   user: UserData;
@@ -103,6 +104,17 @@ const AuthProvider: React.FC = (props: any) => {
       user,
     }));
   }, []);
+
+  useEffect(() => {
+    EventPublisher.instance = new EventPublisher(['TOKEN_EXPIRED']);
+    const subscription = EventPublisher.instance.subscribe(
+      'TOKEN_EXPIRED',
+      () => {
+        signOut();
+      },
+    );
+    return () => subscription();
+  }, [signOut]);
 
   return (
     <AuthContext.Provider
