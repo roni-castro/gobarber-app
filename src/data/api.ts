@@ -1,16 +1,18 @@
 import axios from 'axios';
+import { TIMEZONE } from '../constants/timezone';
 import { getStorageItem } from '../utils/storage';
 import EventPublisher from '../utils/eventPublisher';
 import { TOKEN } from './auth/authStorageConstants';
 
 const api = axios.create({
-  baseURL: 'https://gobarber-api.roni.app',
+  baseURL: 'http://localhost:3333',
 });
 
 api.interceptors.request.use(
   async function onFulfilled(config) {
     const token = await getStorageItem<string>(TOKEN);
 
+    config.headers.timezone = TIMEZONE;
     if (token != null) {
       config.headers.Authorization = `Bearer ${token}`;
     }

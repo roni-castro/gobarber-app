@@ -4,7 +4,6 @@ import Icon from 'react-native-vector-icons/Feather';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { format } from 'date-fns';
-import ptBR from 'date-fns/locale/pt-BR';
 import ProviderDayAvailabilityData from '../../data/models/ProviderDayAvailabilityData';
 import {
   Header,
@@ -91,7 +90,6 @@ const CreateAppointment: React.FC = () => {
             hour,
           ),
           'HH:mm',
-          { locale: ptBR },
         ),
       }));
     };

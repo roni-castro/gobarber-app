@@ -1,1 +1,3 @@
-export const TIMEZONE_AMERICA_SP = 'America/Sao_Paulo';
+import * as moment from 'moment-timezone';
+
+export const TIMEZONE = moment.tz.guess();
