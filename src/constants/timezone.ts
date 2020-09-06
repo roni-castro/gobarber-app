@@ -1,3 +1,3 @@
-import * as moment from 'moment-timezone';
+import * as RNLocalize from 'react-native-localize';
 
-export const TIMEZONE = moment.tz.guess();
+export const TIMEZONE = RNLocalize.getTimeZone();
