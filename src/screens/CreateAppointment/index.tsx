@@ -214,11 +214,12 @@ const CreateAppointment: React.FC = () => {
         />
         <Calendar>
           <CalendarTitle>Escolha a data</CalendarTitle>
-          <SelectedDateText>
-            {`${format(selectedDate, 'dd/MM/yyyy')}`}
-          </SelectedDateText>
           <OpenDatePickerButton onPress={handleDatePickerToogle}>
-            <OpenDatePickerText>Selecionar outra data</OpenDatePickerText>
+            <OpenDatePickerText>
+              <SelectedDateText>
+                {`${format(selectedDate, 'dd/MM/yyyy')}`}
+              </SelectedDateText>
+            </OpenDatePickerText>
           </OpenDatePickerButton>
           {showDatePicker && (
             <DateTimePicker

@@ -106,9 +106,9 @@ export const OpenDatePickerText = styled.Text`
 `;
 
 export const SelectedDateText = styled.Text`
-  font-size: 16px;
+  font-size: 18px;
   font-family: 'RobotoSlab-Medium';
-  color: #f4ede8;
+  color: #28262e;
   text-align: center;
   margin: 0px 16px 16px;
 `;
