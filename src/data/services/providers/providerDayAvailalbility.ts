@@ -16,7 +16,7 @@ interface ProviderDayAvailabilityDTO {
 
 export const getProviderDayAvailability = async (
   params: ProviderDayAvailabilityDTO,
-) => {
+): Promise<ProviderDayAvailabilityData[]> => {
   const { userId, day, month, year } = params;
   const response = await api.get<ProviderDayAvailabilityData[]>(
     `/providers/${userId}/day-availability`,
