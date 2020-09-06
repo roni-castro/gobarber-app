@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { TIMEZONE } from '../constants/timezone';
+import * as RNLocalize from 'react-native-localize';
 import { getStorageItem } from '../utils/storage';
 import EventPublisher from '../utils/eventPublisher';
 import { TOKEN } from './auth/authStorageConstants';
@@ -12,10 +12,11 @@ api.interceptors.request.use(
   async function onFulfilled(config) {
     const token = await getStorageItem<string>(TOKEN);
 
-    config.headers.timezone = TIMEZONE;
     if (token != null) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+    const TIMEZONE = RNLocalize.getTimeZone();
+    config.headers.timezone = TIMEZONE;
 
     return config;
   },
