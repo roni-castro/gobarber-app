@@ -1,0 +1,68 @@
+diff --git a/node_modules/react-native/Libraries/Image/RCTImageLoader.mm b/node_modules/react-native/Libraries/Image/RCTImageLoader.mm
+index 3571647..db94ea4 100644
+--- a/node_modules/react-native/Libraries/Image/RCTImageLoader.mm
++++ b/node_modules/react-native/Libraries/Image/RCTImageLoader.mm
+@@ -1040,34 +1040,39 @@ - (BOOL)canHandleRequest:(NSURLRequest *)request
+ 
+ - (id)sendRequest:(NSURLRequest *)request withDelegate:(id<RCTURLRequestDelegate>)delegate
+ {
+-  __block RCTImageLoaderCancellationBlock requestToken;
+-  requestToken = [self loadImageWithURLRequest:request callback:^(NSError *error, UIImage *image) {
+-    if (error) {
+-      [delegate URLRequest:requestToken didCompleteWithError:error];
+-      return;
+-    }
++  @synchronized(self) {
++    __block RCTImageLoaderCancellationBlock requestToken = ^{};
++    requestToken = [self loadImageWithURLRequest:request callback:^(NSError *error, UIImage *image) {
++      @synchronized(self) {
++
++        if (error) {
++          [delegate URLRequest:requestToken didCompleteWithError:error];
++          return;
++        }
+ 
+-    NSString *mimeType = nil;
+-    NSData *imageData = nil;
+-    if (RCTImageHasAlpha(image.CGImage)) {
+-      mimeType = @"image/png";
+-      imageData = UIImagePNGRepresentation(image);
+-    } else {
+-      mimeType = @"image/jpeg";
+-      imageData = UIImageJPEGRepresentation(image, 1.0);
+-    }
++        NSString *mimeType = nil;
++        NSData *imageData = nil;
++        if (RCTImageHasAlpha(image.CGImage)) {
++          mimeType = @"image/png";
++          imageData = UIImagePNGRepresentation(image);
++        } else {
++          mimeType = @"image/jpeg";
++          imageData = UIImageJPEGRepresentation(image, 1.0);
++        }
+ 
+-    NSURLResponse *response = [[NSURLResponse alloc] initWithURL:request.URL
+-                                                        MIMEType:mimeType
+-                                           expectedContentLength:imageData.length
+-                                                textEncodingName:nil];
++        NSURLResponse *response = [[NSURLResponse alloc] initWithURL:request.URL
++                                                            MIMEType:mimeType
++                                               expectedContentLength:imageData.length
++                                                    textEncodingName:nil];
+ 
+-    [delegate URLRequest:requestToken didReceiveResponse:response];
+-    [delegate URLRequest:requestToken didReceiveData:imageData];
+-    [delegate URLRequest:requestToken didCompleteWithError:nil];
+-  }];
++        [delegate URLRequest:requestToken didReceiveResponse:response];
++        [delegate URLRequest:requestToken didReceiveData:imageData];
++        [delegate URLRequest:requestToken didCompleteWithError:nil];
++      }
++    }];
+ 
+-  return requestToken;
++    return requestToken;
++  }
+ }
+ 
+ - (void)cancelRequest:(id)requestToken
