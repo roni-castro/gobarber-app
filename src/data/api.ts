@@ -5,7 +5,7 @@ import EventPublisher from '../utils/eventPublisher';
 import { TOKEN } from './auth/authStorageConstants';
 
 const api = axios.create({
-  baseURL: 'http://localhost:3333',
+  baseURL: 'https://gobarber-api.roni.app',
 });
 
 api.interceptors.request.use(
