@@ -26,8 +26,8 @@ export const openImagePickerAndGetUri = (): Promise<string | undefined> => {
         .then(image => {
           resolve(image.path);
         })
-        .catch(error => {
-          reject(new Error(`Erro ao carregar image: ${error}`));
+        .catch(() => {
+          resolve('');
         });
     };
 
@@ -46,47 +46,5 @@ export const openImagePickerAndGetUri = (): Promise<string | undefined> => {
       ],
       { cancelable: true },
     );
-    // ImagePicker.showImagePicker(
-    //   {
-    //     title: 'Selecionar Imagem',
-    //     cancelButtonTitle: 'Cancelar',
-    //     takePhotoButtonTitle: 'Tirar foto',
-    //     chooseFromLibraryButtonTitle: 'Escolher da galeria',
-    //     permissionDenied: {
-    //       title: 'Permissão negada',
-    //       text: 'Permissão necessária para poder atualizar a foto',
-    //       reTryTitle: 'Tentar novamente',
-    //       okTitle: 'Tenho certeza',
-    //     },
-    //     // storageOptions: {
-    //     //   skipBackup: true,
-    //     //   path: 'images',
-    //     // },
-    //   },
-    //   response => {
-    //     if (response.didCancel) {
-    //       resolve(undefined);
-    //       return;
-    //     }
-    //     if (response.error) {
-    //       reject(new Error(`Erro ao carregar imagem ${response.error}`));
-    //       return;
-    //     }
-    //     console.warn('response.uri', response.uri);
-    //     ImageCropPicker.openCropper({
-    //       path: response.uri,
-    //       width: 180,
-    //       height: 180,
-    //       cropping: true,
-    //       mediaType: 'photo',
-    //     })
-    //       .then(croppedImage => {
-    //         resolve(croppedImage.path);
-    //       })
-    //       .catch(() => {
-    //         resolve(response.uri);
-    //       });
-    //   },
-    // );
   });
 };
