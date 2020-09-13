@@ -38,27 +38,30 @@ const Login: React.FC = () => {
   const passwordInputRef = useRef<TextInput>(null);
   const { signIn } = useAuth();
 
-  const handleOnSubmitForm = useCallback(async (data: LoginFormProps) => {
-    try {
-      formRef.current?.setErrors({});
-      const schema = Yup.object().shape({
-        email: Yup.string()
-          .required('E-mail é obrigatório')
-          .email('Digite um e-mail válido'),
-        password: Yup.string().required('Senha é obrigatória'),
-      });
-      await schema.validate(data, { abortEarly: false });
-      await signIn(data.email, data.password);
-    } catch (error) {
-      if (error instanceof Yup.ValidationError) {
-        formRef.current?.setErrors(mapValidationErrorToErrorObject(error));
-        return;
+  const handleOnSubmitForm = useCallback(
+    async (data: LoginFormProps) => {
+      try {
+        formRef.current?.setErrors({});
+        const schema = Yup.object().shape({
+          email: Yup.string()
+            .required('E-mail é obrigatório')
+            .email('Digite um e-mail válido'),
+          password: Yup.string().required('Senha é obrigatória'),
+        });
+        await schema.validate(data, { abortEarly: false });
+        await signIn(data.email, data.password);
+      } catch (error) {
+        if (error instanceof Yup.ValidationError) {
+          formRef.current?.setErrors(mapValidationErrorToErrorObject(error));
+          return;
+        }
+        showSnackBar({
+          text: `Erro ao fazer login. Verifique se o email ou senha estão corretos`,
+        });
       }
-      showSnackBar({
-        text: `Erro ao fazer login. Verifique se o email ou senha estão corretos`,
-      });
-    }
-  }, []);
+    },
+    [signIn],
+  );
 
   return (
     <>
@@ -104,7 +107,9 @@ const Login: React.FC = () => {
                 Entrar
               </Button>
             </Form>
-            <ForgotPasswordButton onPress={() => console.warn('forgot')}>
+            <ForgotPasswordButton
+              onPress={() => navigation.navigate('ForgotPassword')}
+            >
               <ForgotPasswordText>Esqueci minha senha</ForgotPasswordText>
             </ForgotPasswordButton>
           </Container>
