@@ -1,14 +1,13 @@
 import styled from 'styled-components/native';
-import { RegularText } from '../../constants/fontFamily';
 import Feather from 'react-native-vector-icons/Feather';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
-import { Platform } from 'react-native';
+import { RegularText } from '../../constants/fontFamily';
 
 export const Container = styled.View`
   flex: 1;
   align-items: center;
   justify-content: center;
-  margin: 0 30px ${Platform.OS === 'android' ? 150 : 100}px 30px;
+  margin: 0 30px 50px 30px;
 `;
 
 export const Title = styled.Text`
