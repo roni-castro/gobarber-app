@@ -1,4 +1,4 @@
-package com.gobarberapp;
+package com.gobarberapp.roni;
 
 import android.content.Intent;
 import android.os.Bundle;
