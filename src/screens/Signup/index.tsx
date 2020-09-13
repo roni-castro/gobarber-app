@@ -19,13 +19,8 @@ import Button from '../../components/Button';
 import Input from '../../components/Input';
 import { mapValidationErrorToErrorObject } from '../../utils/errorObjectMapper';
 import { showSnackBar } from '../../utils/snackbar';
-import {
-  BackToLoginButton,
-  BackToLoginText,
-  Container,
-  Icon,
-  Title,
-} from './styles';
+import { Container, Title } from './styles';
+import ButtonNavigation from '../../components/ButtonNavigation';
 
 interface SignupFormProps {
   email: string;
@@ -129,10 +124,10 @@ const Signup: React.FC = () => {
         </ScrollView>
       </KeyboardAvoidingView>
 
-      <BackToLoginButton onPress={() => navigation.goBack()}>
-        <Icon name="arrow-left" size={20} />
-        <BackToLoginText>Voltar para logon</BackToLoginText>
-      </BackToLoginButton>
+      <ButtonNavigation
+        onPress={() => navigation.goBack()}
+        text="Voltar para logon"
+      />
     </>
   );
 };
