@@ -1,4 +1,4 @@
-package com.gobarberapp;
+package com.gobarberapp.roni;
 
 import com.facebook.react.ReactActivity;
 import android.os.Bundle;
