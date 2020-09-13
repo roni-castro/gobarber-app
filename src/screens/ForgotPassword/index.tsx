@@ -48,7 +48,7 @@ const ForgotPassword: React.FC = () => {
           return;
         }
         showSnackBar({
-          text: `Ocorreu um erro na recuperação da senha. Tente novamente! ${error.message}`,
+          text: `Ocorreu um erro na recuperação da senha. Tente novamente! ${error.response.data?.message}`,
         });
       }
     },
