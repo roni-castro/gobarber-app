@@ -7,7 +7,9 @@ export const openImagePickerAndGetUri = (): Promise<string | undefined> => {
       ImagePicker.openCamera({
         width: 180,
         height: 180,
-        cropping: true,
+        compressImageMaxHeight: 180,
+        compressImageMaxWidth: 180,
+        compressImageQuality: 0.4,
       })
         .then(image => {
           resolve(image.path);
