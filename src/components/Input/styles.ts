@@ -10,7 +10,7 @@ interface InputProps {
 export const Container = styled.View<InputProps>`
   width: 100%;
   height: 60px;
-  padding: 0 16px;
+  padding-left: 16px;
   border-radius: 10px;
   margin-bottom: 8px;
   background-color: #232129;
@@ -41,6 +41,7 @@ export const TextInput = styled.TextInput.attrs<InputProps>({
   flex: 1;
   font-size: 16px;
   color: #fff;
+  height: 100%;
   font-family: 'RobotoSlab-Regular';
 `;
 
