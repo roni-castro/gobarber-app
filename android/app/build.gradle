@@ -158,21 +158,22 @@ android {
                 keyAlias MYAPP_UPLOAD_KEY_ALIAS
                 keyPassword MYAPP_UPLOAD_KEY_PASSWORD
             }
-            resValue "string", "CodePushDeploymentKey", '"qoJE0DadXLl_TZwrP0fh7OD14MbeWE2d58-9j"'
-        }
-        releaseStaging {
-            resValue "string", "CodePushDeploymentKey", '"IfvQj9X80UOBQ0EYqNSPQQbOYZdqjqB959MFU"'
-            matchingFallbacks = ['release']
         }
     }
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
+            resValue "string", "CodePushDeploymentKey", '""'
         }
         release {
             // signingConfig signingConfigs.release // UNCOMMENT THIS LINE TO BUILD MANUALLY
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            resValue "string", "CodePushDeploymentKey", '"qoJE0DadXLl_TZwrP0fh7OD14MbeWE2d58-9j"'
+        }
+        releaseStaging {
+            resValue "string", "CodePushDeploymentKey", '"IfvQj9X80UOBQ0EYqNSPQQbOYZdqjqB959MFU"'
+            matchingFallbacks = ['release']
         }
     }
 
