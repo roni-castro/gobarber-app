@@ -135,6 +135,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
     }
     splits {
         abi {
@@ -196,6 +197,7 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
+    implementation 'androidx.multidex:multidex:2.0.1'
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation 'com.facebook.soloader:soloader:0.9.0+' // Added because of this: https://github.com/facebook/react-native/issues/25537#issuecomment-645932708
 
