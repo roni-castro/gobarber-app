@@ -23,9 +23,9 @@ type FCStatic<P> = React.FunctionComponent<P> & {
 
 interface RenderControllerChildren {
   loadingComponent?: ReactNode;
-  errorComponent: ReactNode;
-  noDataComponent: ReactNode;
-  dataComponents: ReactNode[];
+  errorComponent?: ReactNode;
+  noDataComponent?: ReactNode;
+  dataComponents?: ReactNode[];
 }
 
 export const RenderController: FCStatic<RenderControllerStateProps> = ({
