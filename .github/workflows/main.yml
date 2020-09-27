@@ -19,4 +19,4 @@ jobs:
         UPDATE_COMMAND: yarn
         LOG_LEVEL: debug
       with:
-        args: -u --packageFile package.json --loglevel verbose
+        args: upgrade --latest
