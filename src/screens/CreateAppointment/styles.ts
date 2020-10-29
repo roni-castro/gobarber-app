@@ -50,19 +50,17 @@ export const ProviderAvatar = styled.Image`
 
 export const Container = styled.ScrollView``;
 
-export const ProviderList = styled(FlatList as new () => FlatList<Provider>)`
-  padding: 32px 16px 16px;
-`;
-
-export const ProviderCard = styled.TouchableOpacity<ProviderCardProps>`
+export const ProviderCard = styled.View<ProviderCardProps>`
   flex: 1;
   max-width: 250px;
   flex-direction: row;
   align-items: center;
-  background-color: ${props => (props.isSelected ? '#FF9000' : '#28262e')};
+  background-color: #28262e;
   border-radius: 10px;
   padding: 16px;
+  margin-top: 32px;
   margin-right: 16px;
+  margin-left: 16px;
 `;
 
 export const ProviderCardAvatar = styled.Image`
@@ -75,7 +73,7 @@ export const ProviderCardAvatar = styled.Image`
 export const ProviderCardName = styled.Text<ProviderCardNameProps>`
   font-size: 16px;
   font-family: 'RobotoSlab-Medium';
-  color: ${props => (props.isSelected ? '#232129' : '#f4ede8')};
+  color: #f4ede8;
   margin-left: 10px;
   margin-right: 10px;
 `;
