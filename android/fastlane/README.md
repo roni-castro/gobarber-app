@@ -20,12 +20,17 @@ or alternatively using `brew install fastlane`
 ```
 fastlane android alpha_aab
 ```
-Deploy a new .apk version to the Google PlayStore Alpha
+Deploy a new `.apk` version to the Google PlayStore Alpha
 ### android alpha_apk
 ```
 fastlane android alpha_apk
 ```
-Deploy a new .aab version to the Google PlayStore Alpha
+Deploy a new `.aab` version to the Google PlayStore Alpha
+### android promote_alpha_to_beta
+```
+fastlane android promote_alpha_to_beta
+```
+Promote alpha `.aab` to beta track on PlayStore
 
 ----
 
