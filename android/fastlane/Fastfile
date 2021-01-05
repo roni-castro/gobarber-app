@@ -34,7 +34,8 @@ platform :android do
       task: "bundle", #aab
       build_type: @build_type,
       print_command: false, #Do not print the signing passwords
-      properties: properties
+      properties: properties,
+      flags: "--stacktrace"
     )
     # Upload the artifact saved on the default gradle output path, to the PlayStore track, using the json_key_data_raw (See: android/fastlane/Appfile)
     upload_to_play_store(
