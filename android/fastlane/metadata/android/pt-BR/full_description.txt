@@ -1,0 +1,1 @@
+Por meio deste app é possível selecionar uma barbearia e agendar um horário com ela em um determinado dia da semana.
