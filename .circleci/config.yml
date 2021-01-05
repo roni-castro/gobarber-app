@@ -2,26 +2,30 @@
 version: 2.1
 jobs:
   node:
-    working_directory: ~/demo-react-native
+    working_directory: ~/gobarber
     docker:
       - image: cimg/node:12.16
 
     steps:
       - checkout
 
+      # Restore the yarn cache, in case it exists.
       - restore_cache:
           key: yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
 
+      # Restore the node_modules cache, in case it exists.
       - restore_cache:
           key: node-v1-{{ checksum "package.json" }}-{{ arch }}
 
+      # Install the dependecies
       - run: yarn install
 
+      # Update the yarn cache in case yarn.lock was changed
       - save_cache:
           key: yarn-v1-{{ checksum "yarn.lock" }}-{{ arch }}
           paths:
             - ~/.cache/yarn
-
+      # Update the node cache in case a new module was installed, which changed the package.json
       - save_cache:
           key: node-v1-{{ checksum "package.json" }}-{{ arch }}
           paths:
@@ -36,7 +40,7 @@ jobs:
             JEST_JUNIT_OUTPUT: test-results/jest/junit.xml
 
       - persist_to_workspace:
-          root: ~/demo-react-native
+          root: ~/gobarber
           paths:
             - node_modules
 
@@ -47,7 +51,7 @@ jobs:
           path: test-results
 
   macos-build-and-test:
-    working_directory: ~/demo-react-native
+    working_directory: ~/gobarber
     macos:
       xcode: 11.3.0
     environment:
@@ -111,46 +115,79 @@ jobs:
       - store_test_results:
           path: output/scan
             
-  android-build-and-test:
-    working_directory: ~/demo-react-native/android
+  android-release_aab_alpha:
+    working_directory: ~/gobarber/android
     docker:
       - image: circleci/android:api-29-node
     steps:
       - checkout:
-          path: ~/demo-react-native
+          path: ~/gobarber
 
       - attach_workspace:
-          at: ~/demo-react-native
+          at: ~/gobarber
 
+      # Restore Gemfile cache, in case it exits
       - restore_cache:
           key: bundle-v1-{{ checksum "Gemfile.lock" }}-{{ arch }}
 
+      # Run bundle install to install all gems of Gemfile
       - run: bundle install
 
+      # Update Gemfile cache, in case Gemfile.lock was updated because of a new fastlane version or any other gem
       - save_cache:
           key: bundle-v1-{{ checksum "Gemfile.lock" }}-{{ arch }}
           paths:
             - vendor/bundle
 
       - run:
-          name: fastlane tests
+          name: Deploy .aab to Playstore Alpha
           command: |
-            mkdir -p test-results/fastlane
-            bundle exec fastlane test
-            mv fastlane/report.xml test-results/fastlane
-      - store_test_results:
-          path: test-results
-
+            bundle exec fastlane alpha_aab
+      # Store .aab on CircleCi
       - store_artifacts:
-          path: test-results
+          path: app/build/outputs/bundle/release/app-release.aab
+
+  android-promote_alpha_to_beta:
+    working_directory: ~/gobarber/android
+    docker:
+      - image: circleci/android:api-29-node
+    steps:
+      - checkout:
+          path: ~/gobarber
+
+      - attach_workspace:
+          at: ~/gobarber
+
+      # Restore Gemfile cache, in case it exits
+      - restore_cache:
+          key: bundle-v1-{{ checksum "Gemfile.lock" }}-{{ arch }}
+
+      # Run bundle install to install all gems of Gemfile
+      - run: bundle install
+
+      # Update Gemfile cache, in case Gemfile.lock was updated because of a new fastlane version or any other gem
+      - save_cache:
+          key: bundle-v1-{{ checksum "Gemfile.lock" }}-{{ arch }}
+          paths:
+            - vendor/bundle
+
+      - run:
+          name: Promote .aab from PlayStore Alpha to Beta track
+          command: |
+            bundle exec fastlane promote_alpha_to_beta
 
 workflows:
   node-android-ios:
     jobs:
       - node
-      - android-build-and-test:
+      - android-hold:
+          type: approval
+      - android-release_aab_alpha:
           requires:
             - node
+      - android-promote_alpha_to_beta:
+          requires:
+            - android-hold
       - macos-build-and-test:
           requires:
             - node
