@@ -129,6 +129,12 @@ jobs:
       # Restore Gemfile cache, in case it exits
       - restore_cache:
           key: bundle-v1-{{ checksum "Gemfile.lock" }}-{{ arch }}
+      
+      - run:
+          name: Update rubygems-update and install bundler dependency
+          command: |
+            gem update --system
+            gem install bundler
 
       # Run bundle install to install all gems of Gemfile
       - run: bundle install
