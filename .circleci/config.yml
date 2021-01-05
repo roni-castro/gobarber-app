@@ -140,6 +140,10 @@ jobs:
             - vendor/bundle
 
       - run:
+          name: Generate Android keystore by decoding base64 to production.keystore
+          command: echo $MYAPP_KEYSTORE_BASE64 | base64 -di | tee production.keystore app/production.keystore >/dev/null
+
+      - run:
           name: Deploy .aab to Playstore Alpha
           command: |
             bundle exec fastlane alpha_aab
