@@ -10,6 +10,25 @@ properties = {
 
 platform :android do
 
+  desc "Deploy a new `.aab` version to the Google PlayStore Beta"
+  lane :beta_aab do
+    # Clear any gradle cache
+    gradle(task: "clean")
+    # Generate aab by running assembleRelease with the signing properties
+    gradle(
+      task: "bundle", #aab
+      build_type: 'Release',
+      print_command: false, #Do not print the signing passwords
+      properties: properties
+    )
+    # Upload the artifact saved on the default gradle output path, to the PlayStore track, using the json_key_data_raw (See: android/fastlane/Appfile)
+    upload_to_play_store(
+      track: "beta",
+      aab: "#{lane_context[SharedValues::GRADLE_AAB_OUTPUT_PATH]}", #aab
+      json_key_data: CredentialsManager::AppfileConfig.try_fetch_value(:json_key_data_raw)
+    )
+  end
+
   desc "Deploy a new `.apk` version to the Google PlayStore Beta"
   lane :beta_apk do
     # Clear any gradle cache

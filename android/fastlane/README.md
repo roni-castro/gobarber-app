@@ -16,6 +16,11 @@ or alternatively using `brew install fastlane`
 
 # Available Actions
 ## Android
+### android beta_aab
+```
+fastlane android beta_aab
+```
+Deploy a new `.aab` version to the Google PlayStore Beta
 ### android beta_apk
 ```
 fastlane android beta_apk
