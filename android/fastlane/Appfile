@@ -1,0 +1,2 @@
+json_key_data_raw ENV['MYAPP_PLAYSTORE_KEY_JSON_DATA'] # Path to the json secret content on the machine env
+package_name("com.gobarberapp.roni") # e.g. com.krausefx.app
