@@ -47,7 +47,7 @@ const Signup: React.FC = () => {
       await schema.validate(data, { abortEarly: false });
       await api.post('/users', data);
       showSnackBar({
-        text: 'Cadastro realizado com sucesso. Você já pode fazer seu logon',
+        text: 'Cadastro realizado com sucesso. Você já pode fazer seu login',
       });
       navigation.goBack();
     } catch (error) {
@@ -126,7 +126,7 @@ const Signup: React.FC = () => {
 
       <ButtonNavigation
         onPress={() => navigation.goBack()}
-        text="Voltar para logon"
+        text="Voltar para login"
       />
     </>
   );

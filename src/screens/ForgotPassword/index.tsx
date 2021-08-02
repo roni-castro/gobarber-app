@@ -88,7 +88,7 @@ const ForgotPassword: React.FC = () => {
           </Container>
           <ButtonNavigation
             onPress={() => navigation.goBack()}
-            text="Voltar para logon"
+            text="Voltar para login"
           />
         </ScrollView>
       </KeyboardAvoidingView>

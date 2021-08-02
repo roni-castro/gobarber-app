@@ -75,9 +75,9 @@ const Login: React.FC = () => {
           contentContainerStyle={{ flexGrow: 1 }}
         >
           <Container>
-            <Image source={Assets.Logo} />
+            <Image source={Assets.LogoLamp} />
             <View>
-              <Title>Faça seu logon</Title>
+              <Title>Faça seu login</Title>
             </View>
             <Form ref={formRef} onSubmit={handleOnSubmitForm}>
               <Input
