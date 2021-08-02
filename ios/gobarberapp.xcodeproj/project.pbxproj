@@ -43,7 +43,9 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = gobarberapp/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = gobarberapp/main.m; sourceTree = "<group>"; };
 		22AD1CEC8B2C4DF68C1802C8 /* RobotoSlab-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "RobotoSlab-Regular.ttf"; path = "../assets/fonts/RobotoSlab-Regular.ttf"; sourceTree = "<group>"; };
+		5317CA7C83C94F521B90F6B9 /* Pods-gobarberapp-gobarberappTests.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gobarberapp-gobarberappTests.staging.xcconfig"; path = "Target Support Files/Pods-gobarberapp-gobarberappTests/Pods-gobarberapp-gobarberappTests.staging.xcconfig"; sourceTree = "<group>"; };
 		628172132A207AE52F0C9F07 /* Pods-gobarberapp-gobarberappTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gobarberapp-gobarberappTests.release.xcconfig"; path = "Target Support Files/Pods-gobarberapp-gobarberappTests/Pods-gobarberapp-gobarberappTests.release.xcconfig"; sourceTree = "<group>"; };
+		62F2EA97D3D5B34D98C5D6DA /* Pods-gobarberapp.staging.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gobarberapp.staging.xcconfig"; path = "Target Support Files/Pods-gobarberapp/Pods-gobarberapp.staging.xcconfig"; sourceTree = "<group>"; };
 		743E8FFC843E4D99D6855B4B /* Pods-gobarberapp-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gobarberapp-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-gobarberapp-tvOSTests/Pods-gobarberapp-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		85726F52C454F52B053AA5F2 /* Pods-gobarberapp-gobarberappTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gobarberapp-gobarberappTests.debug.xcconfig"; path = "Target Support Files/Pods-gobarberapp-gobarberappTests/Pods-gobarberapp-gobarberappTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8CD8BB3C2505EFBD0079153A /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -133,6 +135,8 @@
 				C995F313B25464D98040D6E7 /* Pods-gobarberapp-tvOS.release.xcconfig */,
 				C0A4CAF351319A5B5D9B26EB /* Pods-gobarberapp-tvOSTests.debug.xcconfig */,
 				743E8FFC843E4D99D6855B4B /* Pods-gobarberapp-tvOSTests.release.xcconfig */,
+				62F2EA97D3D5B34D98C5D6DA /* Pods-gobarberapp.staging.xcconfig */,
+				5317CA7C83C94F521B90F6B9 /* Pods-gobarberapp-gobarberappTests.staging.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -768,7 +772,7 @@
 		};
 		8C47CBF12517130400298FD7 /* Staging */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 030C981C9A2FF1E7A0FD78EF /* Pods-gobarberapp.release.xcconfig */;
+			baseConfigurationReference = 62F2EA97D3D5B34D98C5D6DA /* Pods-gobarberapp.staging.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -792,7 +796,7 @@
 		};
 		8C47CBF22517130400298FD7 /* Staging */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 628172132A207AE52F0C9F07 /* Pods-gobarberapp-gobarberappTests.release.xcconfig */;
+			baseConfigurationReference = 5317CA7C83C94F521B90F6B9 /* Pods-gobarberapp-gobarberappTests.staging.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
