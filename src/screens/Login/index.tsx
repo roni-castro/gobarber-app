@@ -67,8 +67,7 @@ const Login: React.FC = () => {
     <>
       <KeyboardAvoidingView
         style={{ flex: 1 }}
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        enabled
+        {...Platform.select({ ios: { behavior: 'padding' } })}
       >
         <ScrollView
           keyboardShouldPersistTaps="handled"
@@ -113,13 +112,12 @@ const Login: React.FC = () => {
               <ForgotPasswordText>Esqueci minha senha</ForgotPasswordText>
             </ForgotPasswordButton>
           </Container>
+          <CreateAccountButton onPress={() => navigation.navigate('Signup')}>
+            <Icon name="log-in" size={20} />
+            <CreateAccountText>Criar conta</CreateAccountText>
+          </CreateAccountButton>
         </ScrollView>
       </KeyboardAvoidingView>
-
-      <CreateAccountButton onPress={() => navigation.navigate('Signup')}>
-        <Icon name="log-in" size={20} />
-        <CreateAccountText>Criar conta</CreateAccountText>
-      </CreateAccountButton>
     </>
   );
 };
