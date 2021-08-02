@@ -65,14 +65,13 @@ const Login: React.FC = () => {
 
   return (
     <>
-      <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        enabled
+      <ScrollView
+        keyboardShouldPersistTaps="handled"
+        contentContainerStyle={{ flexGrow: 1 }}
       >
-        <ScrollView
-          keyboardShouldPersistTaps="handled"
-          contentContainerStyle={{ flexGrow: 1 }}
+        <KeyboardAvoidingView
+          style={{ flex: 1 }}
+          {...Platform.select({ ios: { behavior: 'padding' } })}
         >
           <Container>
             <Image source={Assets.Logo} />
@@ -113,13 +112,12 @@ const Login: React.FC = () => {
               <ForgotPasswordText>Esqueci minha senha</ForgotPasswordText>
             </ForgotPasswordButton>
           </Container>
-        </ScrollView>
-      </KeyboardAvoidingView>
-
-      <CreateAccountButton onPress={() => navigation.navigate('Signup')}>
-        <Icon name="log-in" size={20} />
-        <CreateAccountText>Criar conta</CreateAccountText>
-      </CreateAccountButton>
+          <CreateAccountButton onPress={() => navigation.navigate('Signup')}>
+            <Icon name="log-in" size={20} />
+            <CreateAccountText>Criar conta</CreateAccountText>
+          </CreateAccountButton>
+        </KeyboardAvoidingView>
+      </ScrollView>
     </>
   );
 };
