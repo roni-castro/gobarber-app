@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">Go Barber</string>
+    <string name="app_name_debug">Go Barber Debug</string>
+    <string name="app_name_staging">Go Barber Staging</string>
+    <string name="app_name_release">Go Barber</string>
 </resources>

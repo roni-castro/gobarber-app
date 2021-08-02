@@ -164,15 +164,21 @@ android {
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
+            applicationIdSuffix ".debug"
+            resValue "string", "app_name", "@string/app_name_debug"
             resValue "string", "CodePushDeploymentKey", '""'
         }
         release {
             // signingConfig signingConfigs.release // UNCOMMENT THIS LINE TO BUILD MANUALLY
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            resValue "string", "app_name", "@string/app_name_release"
             resValue "string", "CodePushDeploymentKey", '"qoJE0DadXLl_TZwrP0fh7OD14MbeWE2d58-9j"'
         }
         releaseStaging {
+            signingConfig signingConfigs.release // UNCOMMENT THIS LINE TO BUILD MANUALLY
+            applicationIdSuffix ".staging"
+            resValue "string", "app_name", "@string/app_name_staging"
             resValue "string", "CodePushDeploymentKey", '"IfvQj9X80UOBQ0EYqNSPQQbOYZdqjqB959MFU"'
             matchingFallbacks = ['release']
         }
