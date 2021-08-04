@@ -57,14 +57,13 @@ const ForgotPassword: React.FC = () => {
 
   return (
     <>
-      <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-        enabled
+      <ScrollView
+        keyboardShouldPersistTaps="handled"
+        contentContainerStyle={{ flexGrow: 1 }}
       >
-        <ScrollView
-          keyboardShouldPersistTaps="handled"
-          contentContainerStyle={{ flexGrow: 1 }}
+        <KeyboardAvoidingView
+          style={{ flex: 1 }}
+          {...Platform.select({ ios: { behavior: 'padding' } })}
         >
           <Container>
             <Image source={Assets.Logo} />
@@ -90,8 +89,8 @@ const ForgotPassword: React.FC = () => {
             onPress={() => navigation.goBack()}
             text="Voltar para logon"
           />
-        </ScrollView>
-      </KeyboardAvoidingView>
+        </KeyboardAvoidingView>
+      </ScrollView>
     </>
   );
 };

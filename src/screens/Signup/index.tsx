@@ -64,14 +64,13 @@ const Signup: React.FC = () => {
 
   return (
     <>
-      <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        behavior={Platform.OS == 'ios' ? 'padding' : undefined}
-        enabled
+      <ScrollView
+        keyboardShouldPersistTaps="handled"
+        contentContainerStyle={{ flexGrow: 1 }}
       >
-        <ScrollView
-          keyboardShouldPersistTaps="handled"
-          contentContainerStyle={{ flexGrow: 1 }}
+        <KeyboardAvoidingView
+          style={{ flex: 1 }}
+          {...Platform.select({ ios: { behavior: 'padding' } })}
         >
           <Container>
             <Image source={Assets.Logo} />
@@ -121,13 +120,12 @@ const Signup: React.FC = () => {
               </Button>
             </Form>
           </Container>
-        </ScrollView>
-      </KeyboardAvoidingView>
-
-      <ButtonNavigation
-        onPress={() => navigation.goBack()}
-        text="Voltar para logon"
-      />
+          <ButtonNavigation
+            onPress={() => navigation.goBack()}
+            text="Voltar para logon"
+          />
+        </KeyboardAvoidingView>
+      </ScrollView>
     </>
   );
 };
