@@ -21,7 +21,7 @@ import {
   ProviderAvailabilityText,
 } from './styles';
 import { RenderController } from '../../components/RenderController';
-import { LoadingIndicator } from '../../components/LoadingIndicator';
+import { DashboardSkeleton } from '../../components/DashboardSkeleton';
 
 const Dashboard: React.FC = () => {
   const [providers, setProviders] = useState<UserData[]>([]);
@@ -58,7 +58,7 @@ const Dashboard: React.FC = () => {
       error={false}
     >
       <RenderController.StateLoading>
-        <LoadingIndicator />
+        <DashboardSkeleton />
       </RenderController.StateLoading>
       <Container>
         <Header>
