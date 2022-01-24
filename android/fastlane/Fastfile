@@ -1,0 +1,50 @@
+default_platform(:android)
+
+# Create properties variable to hold the android keystore data stored on environment variables
+properties = {
+  "android.injected.signing.store.file" => ENV['MYAPP_UPLOAD_STORE_FILE'],
+  "android.injected.signing.store.password" => ENV['MYAPP_UPLOAD_STORE_PASSWORD'],
+  "android.injected.signing.key.alias" => ENV['MYAPP_UPLOAD_KEY_ALIAS'],
+  "android.injected.signing.key.password" => ENV['MYAPP_UPLOAD_KEY_PASSWORD'],
+}
+
+platform :android do
+
+  desc "Deploy a new `.aab` version to the Google PlayStore Beta"
+  lane :beta_aab do
+    # Clear any gradle cache
+    gradle(task: "clean")
+    # Generate aab by running assembleRelease with the signing properties
+    gradle(
+      task: "bundle", #aab
+      build_type: 'Release',
+      print_command: false, #Do not print the signing passwords
+      properties: properties
+    )
+    # Upload the artifact saved on the default gradle output path, to the PlayStore track, using the json_key_data_raw (See: android/fastlane/Appfile)
+    upload_to_play_store(
+      track: "beta",
+      aab: "#{lane_context[SharedValues::GRADLE_AAB_OUTPUT_PATH]}", #aab
+      json_key_data: CredentialsManager::AppfileConfig.try_fetch_value(:json_key_data_raw)
+    )
+  end
+
+  desc "Deploy a new `.apk` version to the Google PlayStore Beta"
+  lane :beta_apk do
+    # Clear any gradle cache
+    gradle(task: "clean")
+    # Generate apk by running assembleRelease with the signing properties
+    gradle(
+      task: "assemble", #apk
+      build_type: 'Release',
+      print_command: false, #Do not print the signing passwords
+      properties: properties
+    )
+    # Upload the artifact saved on the default gradle output path, to the PlayStore track, using the json_key_data_raw (See: android/fastlane/Appfile)
+    upload_to_play_store(
+      track: "beta",
+      apk: "#{lane_context[SharedValues::GRADLE_APK_OUTPUT_PATH]}", #apk
+      json_key_data: CredentialsManager::AppfileConfig.try_fetch_value(:json_key_data_raw)
+    )
+  end
+end
